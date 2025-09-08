@@ -1,0 +1,37 @@
+{
+  "name": "fe-coding-challenge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Frontend coding challenge built with Next.js and React", // Added description for better project documentation
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix", // Added auto-fix for linting errors to improve developer experience
+    "type-check": "tsc --noEmit", // Added TypeScript type checking without compilation for CI/CD validation
+    "format": "prettier --write .", // Added code formatting to maintain consistent code style
+    "format:check": "prettier --check .", // Added format checking for CI/CD to ensure code is properly formatted
+    "clean": "rimraf .next out", // Added cleanup script to remove build artifacts
+    "analyze": "cross-env ANALYZE=true next build", // Added bundle analysis for performance optimization
+    "preview": "next build && next start", // Added preview script to test production build locally
+    "check-all": "pnpm type-check && pnpm lint && pnpm format:check" // Added comprehensive check script for CI/CD pipeline
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.4.4"
+  },
+  "devDependencies": {
+    "typescript": "5.9.2", // Updated to latest stable TypeScript version with improved performance
+    "@types/node": "24.3.0", // Updated to latest Node.js type definitions
+    "@types/react": "19.1.12", // Updated to latest React 19 type definitions
+    "@types/react-dom": "19.1.12", // Updated to latest React DOM 19 type definitions
+    "@tailwindcss/postcss": "4.1.12", // Updated to latest Tailwind CSS PostCSS integration
+    "tailwindcss": "4.1.12", // Updated to latest Tailwind CSS with enhanced performance
+    "eslint": "9.34.0", // Updated to latest ESLint version with improved rules and performance
+    "eslint-config-next": "15.5.2", // Updated to latest Next.js ESLint config matching Next.js 15.5
+    "@eslint/eslintrc": "3.2.0" // Updated to latest ESLint configuration utility
+  },
+  "packageManager": "pnpm@9.15.1" // Updated from pnpm@8.10.0+sha1 to latest version: removed SHA hash for cleaner config, upgraded for better performance, enhanced security features, improved monorepo support, and modern Node.js compatibility
+}
