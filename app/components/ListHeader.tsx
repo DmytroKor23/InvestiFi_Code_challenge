@@ -37,30 +37,75 @@ export default function ListHeader({ onSortClick, sortBy, sortDirection }: ListH
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600">
-      <div className="grid grid-cols-3 gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+    <div className="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600" role="rowgroup">
+      <div className="grid grid-cols-3 gap-4 text-sm font-medium text-gray-500 dark:text-gray-400" role="row">
         <button
           onClick={() => onSortClick("name")}
-          className="flex items-center gap-1 text-left hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+          className="flex items-center gap-1 text-left hover:text-gray-700 dark:hover:text-gray-200 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+          role="columnheader"
+          aria-sort={
+            sortBy === "name" 
+              ? sortDirection === "asc" 
+                ? "ascending" 
+                : "descending"
+              : "none"
+          }
+          aria-label={`Sort by asset name ${
+            sortBy === "name" 
+              ? sortDirection === "asc" 
+                ? "(currently ascending)" 
+                : "(currently descending)"
+              : ""
+          }`}
         >
           Asset
-          <span className="text-xs">{getSortIcon("name")}</span>
+          <span className="text-xs" aria-hidden="true">{getSortIcon("name")}</span>
         </button>
 
         <button
           onClick={() => onSortClick("symbol")}
-          className="flex items-center gap-1 text-left hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+          className="flex items-center gap-1 text-left hover:text-gray-700 dark:hover:text-gray-200 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+          role="columnheader"
+          aria-sort={
+            sortBy === "symbol" 
+              ? sortDirection === "asc" 
+                ? "ascending" 
+                : "descending"
+              : "none"
+          }
+          aria-label={`Sort by symbol ${
+            sortBy === "symbol" 
+              ? sortDirection === "asc" 
+                ? "(currently ascending)" 
+                : "(currently descending)"
+              : ""
+          }`}
         >
           Symbol
-          <span className="text-xs">{getSortIcon("symbol")}</span>
+          <span className="text-xs" aria-hidden="true">{getSortIcon("symbol")}</span>
         </button>
 
         <button
           onClick={() => onSortClick("price")}
-          className="flex items-center gap-1 justify-end text-right hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+          className="flex items-center gap-1 justify-end text-right hover:text-gray-700 dark:hover:text-gray-200 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+          role="columnheader"
+          aria-sort={
+            sortBy === "price" 
+              ? sortDirection === "asc" 
+                ? "ascending" 
+                : "descending"
+              : "none"
+          }
+          aria-label={`Sort by price ${
+            sortBy === "price" 
+              ? sortDirection === "asc" 
+                ? "(currently ascending)" 
+                : "(currently descending)"
+              : ""
+          }`}
         >
           Price (USD)
-          <span className="text-xs">{getSortIcon("price")}</span>
+          <span className="text-xs" aria-hidden="true">{getSortIcon("price")}</span>
         </button>
       </div>
     </div>

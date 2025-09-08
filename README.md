@@ -25,7 +25,7 @@ A modern, responsive cryptocurrency dashboard built with Next.js 15 and React 19
 
 ## Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommended) or npm
 - CoinMarketCap API key
 
@@ -48,23 +48,27 @@ COINMARKETCAP_API_KEY=your_coinmarketcap_api_key_here
 ## Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd InvestiFi_Code_challenge
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    # Add your COINMARKETCAP_API_KEY to .env.local
    ```
 
 4. **Start the development server**
+
    ```bash
    pnpm dev
    ```
@@ -151,6 +155,7 @@ The application uses the CoinMarketCap Pro API to fetch real-time cryptocurrency
 ## Suggested Improvements
 
 ### Performance Optimizations
+
 - [ ] Implement virtual scrolling for large cryptocurrency lists
 - [ ] Add service worker for offline functionality and caching
 - [ ] Optimize images with Next.js Image component
@@ -158,6 +163,7 @@ The application uses the CoinMarketCap Pro API to fetch real-time cryptocurrency
 - [ ] Add React.memo optimization for expensive components
 
 ### Features & Functionality
+
 - [ ] Add cryptocurrency search and filtering capabilities
 - [ ] Implement user portfolio tracking and persistence
 - [ ] Add price alerts and notifications system
@@ -167,14 +173,15 @@ The application uses the CoinMarketCap Pro API to fetch real-time cryptocurrency
 - [ ] Add export functionality for portfolio data (CSV, PDF)
 
 ### User Experience
+
 - [ ] Add skeleton loading states for better perceived performance
 - [ ] Implement keyboard shortcuts for power users
-- [ ] Add accessibility improvements (ARIA labels, keyboard navigation)
 - [ ] Create onboarding tour for new users
 - [ ] Add customizable dashboard layouts
 - [ ] Implement drag-and-drop sorting for cryptocurrency list
 
 ### Technical Improvements
+
 - [ ] Add comprehensive unit and integration tests (Jest, React Testing Library)
 - [ ] Implement error logging and monitoring (Sentry, LogRocket)
 - [ ] Add API response caching with Redis or similar
@@ -184,6 +191,7 @@ The application uses the CoinMarketCap Pro API to fetch real-time cryptocurrency
 - [ ] Add database integration for user data persistence
 
 ### Security & Reliability
+
 - [ ] Implement rate limiting for API calls
 - [ ] Add input sanitization and validation
 - [ ] Create comprehensive error boundaries
@@ -192,6 +200,7 @@ The application uses the CoinMarketCap Pro API to fetch real-time cryptocurrency
 - [ ] Add health checks and monitoring endpoints
 
 ### Developer Experience
+
 - [ ] Add pre-commit hooks with Husky
 - [ ] Implement automated dependency updates with Dependabot
 - [ ] Create Docker containerization for consistent environments

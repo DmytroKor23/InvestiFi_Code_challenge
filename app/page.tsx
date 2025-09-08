@@ -10,6 +10,7 @@ import Notification from "./components/Notification";
 import { useCryptoData } from "./hooks/useCryptoData";
 import { usePurchaseForm } from "./hooks/usePurchaseForm";
 import { useNotification } from "./hooks/useNotification";
+import { useKeyboardNavigation } from "./hooks/useKeyboardNavigation";
 import { SortOption, SortDirection, ViewMode, CryptoAsset } from "./types";
 import { VIEW_MODES, ERROR_MESSAGES } from "./constants";
 
@@ -34,6 +35,22 @@ export default function Home() {
     getDefaultAsset,
     onSuccess: showSuccess,
     onError: showError,
+  });
+
+  // Keyboard navigation support
+  const { focusElement } = useKeyboardNavigation({
+    onViewModeToggle: () => {
+      setViewMode(current => current === VIEW_MODES.BOXED ? VIEW_MODES.LIST as ViewMode : VIEW_MODES.BOXED as ViewMode);
+    },
+    onFocusSearch: () => {
+      focusElement('purchase-amount');
+    },
+    onEscape: () => {
+      // Clear any focused elements or close notifications
+      hideNotification();
+      (document.activeElement as HTMLElement)?.blur();
+    },
+    enabled: !loading && !error,
   });
 
   /**
@@ -94,7 +111,15 @@ export default function Home() {
 
   return (
     <div className="font-sans min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto" role="main">
+        {/* Skip to main content link for screen readers */}
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
+          tabIndex={0}
+        >
+          Skip to main content
+        </a>
         <Notification notification={notification} onClose={hideNotification} />
 
         <Header
@@ -117,8 +142,16 @@ export default function Home() {
         )}
 
         {loading && (
-          <div className="flex flex-col items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+          <div 
+            className="flex flex-col items-center justify-center py-12"
+            role="status"
+            aria-live="polite"
+            aria-label="Loading cryptocurrency data"
+          >
+            <div 
+              className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"
+              aria-hidden="true"
+            ></div>
             <p className="text-gray-600 dark:text-gray-400">
               Loading cryptocurrency data...
             </p>
@@ -126,7 +159,11 @@ export default function Home() {
         )}
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
+          <div 
+            className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center"
+            role="alert"
+            aria-live="assertive"
+          >
             <p className="text-red-600 dark:text-red-400 font-medium">
               Error: {error}
             </p>
@@ -135,8 +172,13 @@ export default function Home() {
 
         {!loading && !error && cryptoData.length > 0 && (
           <ErrorBoundary>
+            <section id="main-content" aria-label="Cryptocurrency data display">
             {viewMode === VIEW_MODES.LIST && (
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div 
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden"
+                role="table"
+                aria-label="Cryptocurrency prices in list format"
+              >
                 <ListHeader
                   onSortClick={handleSortClick}
                   sortBy={sortBy}
@@ -156,7 +198,11 @@ export default function Home() {
             )}
 
             {viewMode === VIEW_MODES.BOXED && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div 
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                role="grid"
+                aria-label="Cryptocurrency prices in card format"
+              >
                 {sortedCryptoData.map((crypto) => (
                   <CryptoCard
                     key={crypto.id}
@@ -166,6 +212,7 @@ export default function Home() {
                 ))}
               </div>
             )}
+            </section>
           </ErrorBoundary>
         )}
 

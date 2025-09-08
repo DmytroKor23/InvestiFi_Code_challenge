@@ -45,11 +45,23 @@ export default function Notification({ notification, onClose }: NotificationProp
   };
 
   return (
-    <div className="fixed top-4 right-4 z-50 max-w-md">
-      <div className={`${bgColor[notification.type]} border rounded-lg p-4 shadow-lg`}>
+    <div 
+      className="fixed top-4 right-4 z-50 max-w-md"
+      role="region" 
+      aria-label="Notifications"
+    >
+      <div 
+        className={`${bgColor[notification.type]} border rounded-lg p-4 shadow-lg`}
+        role={notification.type === "error" ? "alert" : "status"}
+        aria-live={notification.type === "error" ? "assertive" : "polite"}
+        aria-atomic="true"
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className={`${textColor[notification.type]} font-bold`}>
+            <span 
+              className={`${textColor[notification.type]} font-bold`}
+              aria-hidden="true"
+            >
               {icon[notification.type]}
             </span>
             <p className={`${textColor[notification.type]} text-sm font-medium`}>
@@ -58,9 +70,11 @@ export default function Notification({ notification, onClose }: NotificationProp
           </div>
           <button
             onClick={onClose}
-            className={`${textColor[notification.type]} hover:opacity-70 transition-opacity ml-4`}
+            className={`${textColor[notification.type]} hover:opacity-70 transition-opacity ml-4 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded p-1`}
+            aria-label="Close notification"
+            type="button"
           >
-            ✕
+            <span aria-hidden="true">✕</span>
           </button>
         </div>
       </div>
